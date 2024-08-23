@@ -1,0 +1,125 @@
+# .gitignore for C# projects
+
+# Build results
+bin/
+obj/
+out/
+
+# User-specific files
+.vscode/
+.vscode/*
+
+# Mono Auto Generated Files
+mono_crash.*
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# VS Code specific files
+.vscode/
+
+# Rider specific files
+.idea/
+*.suo
+*.user
+*.userossc
+*.sln.docstates
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Web.config, packages, NuGet and other related files
+appsettings.json
+appsettings.*.json
+bundleconfig.json
+*.log
+*.nupkg
+*.snupkg
+project.lock.json
+project.fragment.lock.json
+
+# NuGet Packages
+*.nupkg
+# The packages folder can be ignored if NuGet restore is used.
+**/packages/
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/packages/build/
+#!**/packages/repositories.config
+# NuGet v3's project.json files produces more ignoreable files
+*.nuget.props
+*.nuget.targets
+
+# Resharper specific files
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# Ignore JetBrains specific files
+*.DotSettings.user
+
+# Windows
+*.pdb
+*.exe
+*.dll
+*.pdb
+
+# Backup & hidden folders
+**/[Bb]ackup/
+**/[Bb]ackups/
+**/~$*
+**/._*
+
+# Logs
+*.log
+**/[Ll]ogs/
+
+# Other
+*.vspscc
+*.vssscc
+
+# Publish outputs
+*.publishsettings
+
+# User-specific files
+*.rsuser
+*.resharper
+*.sln.docstates
+
+# DotNet specific folders/files
+project.lock.json
+project.fragment.lock.json
+artifacts/
+*.tfstate
+*.ide
+.vscode/
+
+# StyleCop
+.stylecop
+
+# File-based project dependencies
+*.d.ts
+**/typings/
+
+# Coverage tool directory
+.coverage/
+*.coverage
+*.coveragexml
+
+# Chutzpah Test files
+_Chutzpah*
+
+# NPM Packages
+node_modules/
+npm-debug.log
+yarn-error.log
+.idea/
+.vscode/
+*.css
+*.scss
+.sass-cache/
