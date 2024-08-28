@@ -6,4 +6,9 @@ class Cadete
     private string Telefono;
     private List<Pedido> ListadoPedidos;
 
+
+    public void Mostrar()
+    {
+        System.Console.WriteLine(id + " | " + Nombre);
+    }
 }

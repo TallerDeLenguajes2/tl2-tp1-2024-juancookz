@@ -1,3 +1,5 @@
+Cadeteria cadeteria = new Cadeteria("Don pepe", "3813524023");
+
 bool continuar = true;
 Console.Clear();
 while (continuar)
@@ -17,8 +19,10 @@ while (continuar)
             Console.WriteLine("Saliendo del programa...");
             break;
         case 1:
+            cadeteria.TomarPedido();
             break;
         case 2:
+            cadeteria.AsignarPedido();
             break;
         case 3:
             break;

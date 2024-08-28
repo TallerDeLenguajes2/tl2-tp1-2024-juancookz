@@ -3,7 +3,7 @@ class Pedido
     private int Numero;
     private string Observacion;
     private Cliente Cliente;
-    private Estado estado;  
+    private Estado estado;
     private enum Estado
     {
         Pendiente,
@@ -17,5 +17,8 @@ class Pedido
         Cliente = cliente;
         estado = Estado.Pendiente;
     }
-
+    public void Mostrar()
+    {
+        System.Console.WriteLine(Numero + " | " + estado);
+    }
 }

@@ -12,4 +12,8 @@ class Cliente
         Telefono = telefono;
         ReferenciaDireccion = referenciaDireccion;
     }
+    public void Mostrar()
+    {
+        System.Console.WriteLine(Nombre + " | " + Direccion);
+    }
 }
