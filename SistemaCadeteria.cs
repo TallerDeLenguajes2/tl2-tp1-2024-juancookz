@@ -19,6 +19,14 @@ while (continuar)
             Console.WriteLine("Saliendo del programa...");
             break;
         case 1:
+            string rutaArchivo = "ids.csv";
+
+            IdGen idGen = new IdGen(rutaArchivo);
+
+            int newId = idGen.GenerateNewId(rutaArchivo);
+
+            Console.WriteLine("Generated ID: " + newId);
+
             cadeteria.TomarPedido();
             break;
         case 2:
