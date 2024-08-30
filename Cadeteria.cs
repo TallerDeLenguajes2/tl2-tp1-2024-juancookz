@@ -1,9 +1,11 @@
-﻿using System.Linq;
+﻿using System.Data.Common;
+using System.Linq;
 class Cadeteria
 {
     private string Nombre;
     private string Telefono;
     private List<Cadete> ListadoCadetes;
+    private List<Pedido> ListadoPedidos;
     private List<Pedido> ListadoPedidosAsignar;
     private List<Pedido> ListadoPedidosEnCurso;
     public Cadeteria(string nombre, string telefono)
@@ -43,6 +45,12 @@ class Cadeteria
         {
             pedido.Mostrar();
         }
+    }
+
+    public int GenerateId(){
+        int id = 0;
+        
+        return id;
     }
 
 

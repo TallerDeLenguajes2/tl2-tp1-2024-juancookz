@@ -124,3 +124,4 @@ yarn-error.log
 *.scss
 .sass-cache/
 tl2-tp1-2024-juancookz.generated.sln
+ids.csv
