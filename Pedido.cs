@@ -6,19 +6,23 @@ class Pedido
     private Estado estado;
     private enum Estado
     {
-        Pendiente,
+        Asignar,
         EnCurso,
-        Entregado
+        Finalizado
     };
+    private Cadete Cadete;
     public Pedido(int numero, string observacion, Cliente cliente)
     {
         Numero = numero;
         Observacion = observacion;
         Cliente = cliente;
-        estado = Estado.Pendiente;
+        estado = Estado.Asignar;
     }
+
+
     public void Mostrar()
     {
         System.Console.WriteLine(Numero + " | " + estado);
     }
+    
 }
