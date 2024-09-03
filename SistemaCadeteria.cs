@@ -11,8 +11,9 @@ while (continuar)
     Console.WriteLine("2. Asignar pedidos a cadetes");
     Console.WriteLine("3. Cambiar estado de un pedido");
     Console.WriteLine("4. Reasignar pedido a otro cadete");
+    Console.WriteLine("5. Jornal a cobrar");
     Console.WriteLine("0. Salir");
-    Console.Write("Seleccione una opción (0-4): ");
+    Console.Write("Seleccione una opción (0-5): ");
     int menu = elegirOpcion();
     switch (menu)
     {
@@ -21,12 +22,8 @@ while (continuar)
             Console.WriteLine("Saliendo del programa...");
             break;
         case 1:
-
-            int newId = idCadetes.GenerateNewId();
-
-            Console.WriteLine("Generated ID: " + newId);
-
-            //cadeteria.TomarPedido();
+        int id = idPedidos.GenerateNewId();
+            cadeteria.TomarPedido(id);
             break;
         case 2:
             cadeteria.AsignarPedido();
@@ -34,6 +31,8 @@ while (continuar)
         case 3:
             break;
         case 4:
+            break;
+        case 5:
             break;
         default:
             Console.Clear();

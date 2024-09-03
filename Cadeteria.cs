@@ -6,14 +6,12 @@ class Cadeteria
     private string Telefono;
     private List<Cadete> ListadoCadetes;
     private List<Pedido> ListadoPedidos;
-    private List<Pedido> ListadoPedidosAsignar;
-    private List<Pedido> ListadoPedidosEnCurso;
     public Cadeteria(string nombre, string telefono)
     {
         Nombre = nombre;
         Telefono = telefono;
     }
-    public void TomarPedido()
+    public void TomarPedido(int numero)
     {
         Console.WriteLine("Ingrese el nombre del cliente: ");
         string nombre = Console.ReadLine();
@@ -27,31 +25,22 @@ class Cadeteria
         Console.WriteLine("Ingrese una referencia para la dirección del cliente (opcional): ");
         string referenciaDireccion = Console.ReadLine();
 
-        Console.WriteLine("Ingrese el número del pedido: ");
-        int numero = Convert.ToInt32(Console.ReadLine());
-
         Console.WriteLine("Ingrese la observación del pedido (opcional): ");
         string observacion = Console.ReadLine();
 
+        Cadete cadete = null;
         Cliente cliente = new Cliente(nombre, direccion, telefono, referenciaDireccion);
-        Pedido pedido = new Pedido(numero, observacion, cliente);
-        ListadoPedidosAsignar.Add(pedido);
+        Pedido pedido = new Pedido(numero, observacion, cliente, cadete);
+        ListadoPedidos.Add(pedido);
     }
     public void AsignarPedido()
     {
         System.Console.WriteLine("Elija un pedido a asignar:");
         System.Console.WriteLine("Nº|Estado");
-        foreach (var pedido in ListadoPedidosAsignar)
+        foreach (var pedido in ListadoPedidos.Where(p => p.estado == Pedido.Estado.Asignar))
         {
             pedido.Mostrar();
         }
     }
-
-    public int GenerateId(){
-        int id = 0;
-        
-        return id;
-    }
-
 
 }
