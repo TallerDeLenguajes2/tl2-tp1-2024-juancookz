@@ -1,4 +1,6 @@
 Cadeteria cadeteria = new Cadeteria("Don pepe", "3813524023");
+IdGen idCadetes = new IdGen("idCadetes.csv");
+IdGen idPedidos = new IdGen("idPedidos.csv");
 
 bool continuar = true;
 Console.Clear();
@@ -19,15 +21,12 @@ while (continuar)
             Console.WriteLine("Saliendo del programa...");
             break;
         case 1:
-            string rutaArchivo = "ids.csv";
 
-            IdGen idGen = new IdGen(rutaArchivo);
-
-            int newId = idGen.GenerateNewId(rutaArchivo);
+            int newId = idCadetes.GenerateNewId();
 
             Console.WriteLine("Generated ID: " + newId);
 
-            cadeteria.TomarPedido();
+            //cadeteria.TomarPedido();
             break;
         case 2:
             cadeteria.AsignarPedido();

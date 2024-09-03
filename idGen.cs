@@ -7,13 +7,16 @@ public class IdGen
     private CSV csvHandler;
     private List<int> existingIds;
 
+    private string filePath;
+
     public IdGen(string filePath)
     {
         csvHandler = new CSV();
-        LoadExistingIds(filePath);
+        this.filePath = filePath;
+        LoadExistingIds();
     }
 
-    private void LoadExistingIds(string filePath)
+    private void LoadExistingIds()
     {
         existingIds = new List<int>();
         List<string> data = csvHandler.ReadCSV(filePath);
@@ -27,7 +30,7 @@ public class IdGen
         }
     }
 
-    public int GenerateNewId(string filePath)
+    public int GenerateNewId()
     {
         int newId = 1;
 
