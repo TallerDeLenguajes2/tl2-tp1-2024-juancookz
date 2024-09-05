@@ -10,6 +10,8 @@ class Cadeteria
     {
         Nombre = nombre;
         Telefono = telefono;
+        ListadoPedidos = new List<Pedido>();
+        ListadoCadetes = new List<Cadete>();
     }
     public void TomarPedido(int numero)
     {

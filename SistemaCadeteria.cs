@@ -22,7 +22,7 @@ while (continuar)
             Console.WriteLine("Saliendo del programa...");
             break;
         case 1:
-        int id = idPedidos.GenerateNewId();
+            int id = idPedidos.GenerateNewId();
             cadeteria.TomarPedido(id);
             break;
         case 2:
