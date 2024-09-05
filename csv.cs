@@ -13,6 +13,7 @@ public class CSV
             if (!File.Exists(filePath))
             {
                 Console.WriteLine("El archivo no existe.");
+                File.Create(filePath);
                 return csvData; // Return empty list
             }
 
