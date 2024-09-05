@@ -6,13 +6,15 @@ class Cadeteria
     private string Telefono;
     private List<Cadete> ListadoCadetes;
     private List<Pedido> ListadoPedidos;
-    public Cadeteria(string nombre, string telefono)
+
+    public Cadeteria(string nombre, string telefono, List<Cadete> listadoCadetes, List<Pedido> listadoPedidos)
     {
         Nombre = nombre;
         Telefono = telefono;
-        ListadoPedidos = new List<Pedido>();
-        ListadoCadetes = new List<Cadete>();
+        ListadoCadetes = listadoCadetes;
+        ListadoPedidos = listadoPedidos;
     }
+
     public void TomarPedido(int numero)
     {
         Console.WriteLine("Ingrese el nombre del cliente: ");
@@ -38,10 +40,16 @@ class Cadeteria
     public void AsignarPedido()
     {
         System.Console.WriteLine("Elija un pedido a asignar:");
-        System.Console.WriteLine("Nº|Estado");
+        System.Console.WriteLine("Nº | Estado");
         foreach (var pedido in ListadoPedidos.Where(p => p.estado == Pedido.Estado.Asignar))
         {
             pedido.Mostrar();
+        }
+        System.Console.WriteLine("=== Listado de cadetes ===");
+        System.Console.WriteLine("Id | Nombre");
+        foreach (var cadete in ListadoCadetes)
+        {
+            cadete.Mostrar();
         }
     }
 
