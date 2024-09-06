@@ -21,9 +21,11 @@ public class IdGen
         existingIds = new List<int>();
         List<string> data = csvHandler.ReadCSV(filePath);
 
-        foreach (string line in data)
+        foreach (var line in data)
         {
-            if (int.TryParse(line, out int id))
+            string[] dataFields = line.Split(',');
+            int id = int.Parse(dataFields[0]);
+            if (int.TryParse(line, out id))
             {
                 existingIds.Add(id);
             }
@@ -40,7 +42,7 @@ public class IdGen
         }
 
         existingIds.Add(newId);
-        csvHandler.WriteCSV(filePath, 
+        csvHandler.WriteCSV(filePath,
         existingIds
         .Select(id => id.ToString()).ToList()
         );
