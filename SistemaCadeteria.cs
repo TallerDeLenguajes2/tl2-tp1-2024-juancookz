@@ -1,14 +1,17 @@
-IdGen idCadetes = new IdGen("idCadetes.csv");
-IdGen idPedidos = new IdGen("idPedidos.csv");
-List<Cadete> cadetes = LeerListaCadetesCsv("cadetes.csv");
+using System.ComponentModel;
+using System.Reflection;
+
+IdGen idCadetes = new IdGen("csv/cadetes.csv");
+IdGen idPedidos = new IdGen("csv/idPedidos.csv");
+List<Cadete> cadetes = LeerListaCadetesCsv("csv/cadetes.csv");
 List<Pedido> pedidos = new List<Pedido>();
-Cadeteria cadeteria = new Cadeteria("Pepe","3813524023",cadetes, pedidos);
+Cadeteria cadeteria = new Cadeteria("Pepe", "3813524023", cadetes, pedidos);
 
 
 bool continuar = true;
-Console.Clear();
 while (continuar)
 {
+    Console.Clear();
     Console.WriteLine("=== Menú de Gestión de Pedidos ===");
     Console.WriteLine("1. Dar de alta pedidos");
     Console.WriteLine("2. Asignar pedidos a cadetes");
@@ -26,10 +29,53 @@ while (continuar)
             break;
         case 1:
             int id = idPedidos.GenerateNewId();
-            cadeteria.TomarPedido(id);
+
+            Console.WriteLine("Ingrese el nombre del cliente: ");
+            string nombre = Console.ReadLine();
+
+            Console.WriteLine("Ingrese la dirección del cliente: ");
+            string direccion = Console.ReadLine();
+
+            Console.WriteLine("Ingrese el número de teléfono del cliente: ");
+            string telefono = Console.ReadLine();
+
+            Console.WriteLine("Ingrese una referencia para la dirección del cliente (opcional): ");
+            string referenciaDireccion = Console.ReadLine();
+
+            Console.WriteLine("Ingrese la observación del pedido (opcional): ");
+            string observacion = Console.ReadLine();
+
+            pedidos.Add(cadeteria.TomarPedido(id, nombre, direccion, telefono, referenciaDireccion, observacion));
             break;
         case 2:
-            cadeteria.AsignarPedido();
+            int idPedido, idCadete, asignacion = 0;
+            do
+            {
+                System.Console.WriteLine("Elija un pedido a asignar:");
+                System.Console.WriteLine("Nº| Estado");
+                foreach (var pedido in pedidos.Where(p => p.estado == Pedido.Estado.Asignar))
+                {
+                    pedido.Mostrar();
+                }
+                System.Console.Write("Ingrese Nº: ");
+                idPedido = elegirOpcion();
+                System.Console.WriteLine("=== Listado de cadetes ===");
+                System.Console.WriteLine("Id | Nombre");
+                foreach (var cadete in cadetes)
+                {
+                    cadete.Mostrar();
+                }
+                System.Console.Write("Ingrese Nº: ");
+                idCadete = elegirOpcion();
+                asignacion = cadeteria.AsignarPedido(idCadete, idPedido);
+                if (asignacion == 0)
+                {
+                    Console.Clear();
+                    System.Console.WriteLine("Numero de cadete o pedido invalido.");
+                    System.Console.WriteLine("Por favor ingrese un Nº valido.");
+                    Thread.Sleep(500);
+                }
+            } while (asignacion == 0);
             break;
         case 3:
             break;
