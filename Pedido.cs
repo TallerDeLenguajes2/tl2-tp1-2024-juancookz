@@ -1,30 +1,33 @@
 class Pedido
 {
-    private int Numero;
-    private string Observacion;
-    private Cliente Cliente;
+    public int Numero { get => numero; }
+    private int numero;
+    private string observacion;
+    private Cliente cliente;
     public Estado estado;
+    private Cadete cadete;
     public enum Estado
     {
         Asignar,
         EnCurso,
         Finalizado
     };
-    private Cadete Cadete;
-
-    public Pedido(int numero, string observacion, Cliente cliente,Cadete cadete)
+    
+    public Pedido(int numero, string observacion, Cliente cliente, Cadete cadete)
     {
-        Numero = numero;
-        Observacion = observacion;
-        Cliente = cliente;
+        this.numero = numero;
+        this.observacion = observacion;
+        this.cliente = cliente;
         estado = Estado.Asignar;
-        Cadete = cadete;
+        this.cadete = cadete;
     }
-
-
     public void Mostrar()
     {
         System.Console.WriteLine(Numero + " | " + estado);
     }
-    
+    public void AsignarCadete(Cadete cadeteAsignado)
+    {
+        estado = Estado.EnCurso;
+        cadete = cadeteAsignado;
+    }
 }
