@@ -35,4 +35,18 @@ class Cadeteria
             return 0;
         }
     }
+
+    public int FinalizarPedido(int idPedido)
+    {
+        Pedido pedido = ListadoPedidos.FirstOrDefault(p => p.Numero == idPedido);
+        if (pedido != null)
+        {
+            pedido.Finalizar();
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
 }
