@@ -28,56 +28,13 @@ while (continuar)
             Console.WriteLine("Saliendo del programa...");
             break;
         case 1:
-            int id = idPedidos.GenerateNewId();
-
-            Console.WriteLine("Ingrese el nombre del cliente: ");
-            string nombre = Console.ReadLine();
-
-            Console.WriteLine("Ingrese la dirección del cliente: ");
-            string direccion = Console.ReadLine();
-
-            Console.WriteLine("Ingrese el número de teléfono del cliente: ");
-            string telefono = Console.ReadLine();
-
-            Console.WriteLine("Ingrese una referencia para la dirección del cliente (opcional): ");
-            string referenciaDireccion = Console.ReadLine();
-
-            Console.WriteLine("Ingrese la observación del pedido (opcional): ");
-            string observacion = Console.ReadLine();
-
-            pedidos.Add(cadeteria.TomarPedido(id, nombre, direccion, telefono, referenciaDireccion, observacion));
+            MenuTomarPedido(idPedidos, pedidos, cadeteria);
             break;
         case 2:
-            int idPedido, idCadete, asignacion = 0;
-            do
-            {
-                System.Console.WriteLine("Elija un pedido a asignar:");
-                System.Console.WriteLine("Nº| Estado");
-                foreach (var pedido in pedidos.Where(p => p.estado == Pedido.Estado.Asignar))
-                {
-                    pedido.Mostrar();
-                }
-                System.Console.Write("Ingrese Nº: ");
-                idPedido = elegirOpcion();
-                System.Console.WriteLine("=== Listado de cadetes ===");
-                System.Console.WriteLine("Id | Nombre");
-                foreach (var cadete in cadetes)
-                {
-                    cadete.Mostrar();
-                }
-                System.Console.Write("Ingrese Nº: ");
-                idCadete = elegirOpcion();
-                asignacion = cadeteria.AsignarPedido(idCadete, idPedido);
-                if (asignacion == 0)
-                {
-                    Console.Clear();
-                    System.Console.WriteLine("Numero de cadete o pedido invalido.");
-                    System.Console.WriteLine("Por favor ingrese un Nº valido.");
-                    Thread.Sleep(500);
-                }
-            } while (asignacion == 0);
+            MenuAsignarPedido(cadetes, pedidos, cadeteria);
             break;
         case 3:
+            MenuFinalizarPedido(pedidos, cadeteria);
             break;
         case 4:
             break;
@@ -91,7 +48,7 @@ while (continuar)
     }
 }
 
-static int elegirOpcion()
+int elegirOpcion()
 {
     int salida = -1;
     string entrada = "";
@@ -119,4 +76,105 @@ List<Cadete> LeerListaCadetesCsv(string cadetesFilePath)
         ListadoCadetesCsv.Add(cadete);
     }
     return ListadoCadetesCsv;
+}
+
+void MenuTomarPedido(IdGen idPedidos, List<Pedido> pedidos, Cadeteria cadeteria)
+{
+    int id = idPedidos.GenerateNewId();
+
+    Console.WriteLine("Ingrese el nombre del cliente: ");
+    string nombre = Console.ReadLine();
+
+    Console.WriteLine("Ingrese la dirección del cliente: ");
+    string direccion = Console.ReadLine();
+
+    Console.WriteLine("Ingrese el número de teléfono del cliente: ");
+    string telefono = Console.ReadLine();
+
+    Console.WriteLine("Ingrese una referencia para la dirección del cliente (opcional): ");
+    string referenciaDireccion = Console.ReadLine();
+
+    Console.WriteLine("Ingrese la observación del pedido (opcional): ");
+    string observacion = Console.ReadLine();
+
+    pedidos.Add(cadeteria.TomarPedido(id, nombre, direccion, telefono, referenciaDireccion, observacion));
+}
+
+void MenuAsignarPedido(List<Cadete> cadetes, List<Pedido> pedidos, Cadeteria cadeteria)
+{
+    if (pedidos.Where(p => p.estado == Pedido.Estado.Asignar).Count() > 0)
+    {
+        int idPedido, idCadete, asignacion = 0;
+        do
+        {
+            System.Console.WriteLine("Elija un pedido a asignar:");
+            System.Console.WriteLine("Nº| Estado");
+            foreach (var pedido in pedidos.Where(p => p.estado == Pedido.Estado.Asignar))
+            {
+                pedido.Mostrar();
+            }
+            System.Console.Write("Ingrese Nº: ");
+            idPedido = elegirOpcion();
+            System.Console.WriteLine("=== Listado de cadetes ===");
+            System.Console.WriteLine("Id | Nombre");
+            foreach (var cadete in cadetes)
+            {
+                cadete.Mostrar();
+            }
+            System.Console.Write("Ingrese Nº: ");
+            idCadete = elegirOpcion();
+            asignacion = cadeteria.AsignarPedido(idCadete, idPedido);
+            if (asignacion == 0)
+            {
+                Console.Clear();
+                System.Console.WriteLine("Numero de cadete o pedido invalido.");
+                System.Console.WriteLine("Por favor ingrese un Nº valido.");
+                Thread.Sleep(500);
+            }
+        } while (asignacion == 0);
+    }
+    else
+    {
+        System.Console.WriteLine("No hay pedidos a asignar");
+        System.Console.WriteLine("Presione cualquier tecla para salir");
+        Console.ReadKey();
+    }
+}
+
+void MenuFinalizarPedido(List<Pedido> pedidos, Cadeteria cadeteria)
+{
+    if (pedidos.Where(p => p.estado == Pedido.Estado.EnCurso).Count() > 0)
+    {
+        int idPedido, asignacion = 0;
+        do
+        {
+            System.Console.WriteLine("Elija un pedido en curso:");
+            System.Console.WriteLine("Nº| Estado");
+            foreach (var pedido in pedidos.Where(p => p.estado == Pedido.Estado.EnCurso))
+            {
+                pedido.Mostrar();
+            }
+            System.Console.Write("Ingrese Nº: ");
+            idPedido = elegirOpcion();
+            cadeteria.FinalizarPedido(idPedido);
+            asignacion = cadeteria.FinalizarPedido(idPedido);
+            if (asignacion == 0)
+            {
+                Console.Clear();
+                System.Console.WriteLine("Numero de pedido invalido.");
+                System.Console.WriteLine("Por favor ingrese un Nº valido.");
+                Thread.Sleep(500);
+            }
+        } while (asignacion == 0);
+        System.Console.WriteLine("Pedido marcado como finalizado.");
+        Thread.Sleep(300);
+        System.Console.WriteLine("Presione cualquier tecla para continuar.");
+        Console.ReadKey();
+    }
+    else
+    {
+        System.Console.WriteLine("No hay pedidos en curso");
+        System.Console.WriteLine("Presione cualquier tecla para salir");
+        Console.ReadKey();
+    }
 }
