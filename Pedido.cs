@@ -1,6 +1,8 @@
 class Pedido
 {
     public int Numero { get => numero; }
+    internal Cadete Cadete { get => cadete;}
+
     private int numero;
     private string observacion;
     private Cliente cliente;
@@ -23,7 +25,15 @@ class Pedido
     }
     public string Mostrar()
     {
-        string retorno = Numero + " | " + estado;
+        string nombreCadete;
+        if (cadete == null)
+        {
+            nombreCadete = "N/A";
+        }else
+        {
+            nombreCadete = cadete.Nombre;
+        }
+        string retorno = Numero + " | " + estado + " | " + cliente.Nombre + " | " + cliente.Direccion + " | " + nombreCadete;
         return retorno;
     }
     public void AsignarCadete(Cadete cadeteAsignado)

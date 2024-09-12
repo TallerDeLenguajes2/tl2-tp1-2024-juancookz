@@ -1,9 +1,9 @@
 using System.ComponentModel;
 using System.Reflection;
 
-IdGen idCadetes = new IdGen("cadetes.csv");
-IdGen idPedidos = new IdGen("idPedidos.csv");
-List<Cadete> cadetes = LeerListaCadetesCsv("cadetes.csv");
+IdGen idCadetes = new IdGen("csv/cadetes.csv");
+IdGen idPedidos = new IdGen("csv/idPedidos.csv");
+List<Cadete> cadetes = LeerListaCadetesCsv("csv/cadetes.csv");
 List<Pedido> pedidos = new List<Pedido>();
 Cadeteria cadeteria = new Cadeteria("Pepe", "3813524023", cadetes, pedidos);
 
@@ -37,43 +37,7 @@ while (continuar)
             MenuFinalizarPedido(pedidos, cadeteria);
             break;
         case 4:
-            if (pedidos.Where(p => p.estado == Pedido.Estado.EnCurso).Count() > 0)
-            {
-                int idPedido, idCadete, asignacion = 0;
-                do
-                {
-                    System.Console.WriteLine("Elija un pedido en curso:");
-                    System.Console.WriteLine("Nº|Cliente |Cadete | Estado");
-                    foreach (var pedido in pedidos.Where(p => p.estado == Pedido.Estado.EnCurso))
-                    {
-                        System.Console.WriteLine(pedido.Mostrar());
-                    }
-                    System.Console.Write("Ingrese Nº pedido a reasignar: ");
-                    idPedido = elegirOpcion();
-                    System.Console.WriteLine("=== Listado de cadetes ===");
-                    System.Console.WriteLine("Id | Nombre");
-                    foreach (var cadete in cadetes)
-                    {
-                        System.Console.WriteLine(cadete.Mostrar());
-                    }
-                    System.Console.Write("Ingrese Nº: ");
-                    idCadete = elegirOpcion();
-                    asignacion = cadeteria.AsignarPedido(idCadete, idPedido);
-                    if (asignacion == 0)
-                    {
-                        Console.Clear();
-                        System.Console.WriteLine("Numero de cadete o pedido invalido.");
-                        System.Console.WriteLine("Por favor ingrese un Nº valido.");
-                        Thread.Sleep(500);
-                    }
-                } while (asignacion == 0);
-            }
-            else
-            {
-                System.Console.WriteLine("No hay pedidos en curso para reasignar");
-                System.Console.WriteLine("Presione cualquier tecla para salir");
-                Console.ReadKey();
-            }
+            MenuReasignarPedido(cadetes, pedidos, cadeteria);
             break;
         case 5:
             break;
@@ -145,7 +109,7 @@ void MenuAsignarPedido(List<Cadete> cadetes, List<Pedido> pedidos, Cadeteria cad
         do
         {
             System.Console.WriteLine("Elija un pedido a asignar:");
-            System.Console.WriteLine("Nº|Cliente |Cadete | Estado");
+            System.Console.WriteLine("Nº| Estado  | Cliente | Direccion | Cadete");
             foreach (var pedido in pedidos.Where(p => p.estado == Pedido.Estado.Asignar))
             {
                 System.Console.WriteLine(pedido.Mostrar());
@@ -186,7 +150,7 @@ void MenuFinalizarPedido(List<Pedido> pedidos, Cadeteria cadeteria)
         do
         {
             System.Console.WriteLine("Elija un pedido en curso:");
-            System.Console.WriteLine("Nº|Cliente |Cadete | Estado");
+            System.Console.WriteLine("Nº| Estado | Cliente | Direccion | Cadete");
             foreach (var pedido in pedidos.Where(p => p.estado == Pedido.Estado.EnCurso))
             {
                 System.Console.WriteLine(pedido.Mostrar());
@@ -211,6 +175,47 @@ void MenuFinalizarPedido(List<Pedido> pedidos, Cadeteria cadeteria)
     else
     {
         System.Console.WriteLine("No hay pedidos en curso");
+        System.Console.WriteLine("Presione cualquier tecla para salir");
+        Console.ReadKey();
+    }
+}
+
+void MenuReasignarPedido(List<Cadete> cadetes, List<Pedido> pedidos, Cadeteria cadeteria)
+{
+    if (pedidos.Where(p => p.estado == Pedido.Estado.EnCurso).Count() > 0)
+    {
+        int idPedido, idCadete, asignacion = 0;
+        do
+        {
+            System.Console.WriteLine("Elija un pedido en curso:");
+            System.Console.WriteLine("Nº| Estado  | Cliente | Direccion | Cadete");
+            foreach (var pedido in pedidos.Where(p => p.estado == Pedido.Estado.EnCurso))
+            {
+                System.Console.WriteLine(pedido.Mostrar());
+            }
+            System.Console.Write("Ingrese Nº pedido a reasignar: ");
+            idPedido = elegirOpcion();
+            System.Console.WriteLine("=== Listado de cadetes ===");
+            System.Console.WriteLine("Id | Nombre");
+            foreach (var cadete in cadetes)
+            {
+                System.Console.WriteLine(cadete.Mostrar());
+            }
+            System.Console.Write("Ingrese Nº: ");
+            idCadete = elegirOpcion();
+            asignacion = cadeteria.AsignarPedido(idCadete, idPedido);
+            if (asignacion == 0)
+            {
+                Console.Clear();
+                System.Console.WriteLine("Numero de cadete o pedido invalido.");
+                System.Console.WriteLine("Por favor ingrese un Nº valido.");
+                Thread.Sleep(500);
+            }
+        } while (asignacion == 0);
+    }
+    else
+    {
+        System.Console.WriteLine("No hay pedidos en curso para reasignar");
         System.Console.WriteLine("Presione cualquier tecla para salir");
         Console.ReadKey();
     }
