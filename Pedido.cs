@@ -23,7 +23,8 @@ class Pedido
     }
     public string Mostrar()
     {
-        return Numero + " | " + cliente.Nombre + " | " + cadete.Nombre + " | " + estado;
+        string retorno = Numero + " | " + estado;
+        return retorno;
     }
     public void AsignarCadete(Cadete cadeteAsignado)
     {

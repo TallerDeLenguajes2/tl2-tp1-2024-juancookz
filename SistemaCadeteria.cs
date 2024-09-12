@@ -1,9 +1,9 @@
 using System.ComponentModel;
 using System.Reflection;
 
-IdGen idCadetes = new IdGen("csv/cadetes.csv");
-IdGen idPedidos = new IdGen("csv/idPedidos.csv");
-List<Cadete> cadetes = LeerListaCadetesCsv("csv/cadetes.csv");
+IdGen idCadetes = new IdGen("cadetes.csv");
+IdGen idPedidos = new IdGen("idPedidos.csv");
+List<Cadete> cadetes = LeerListaCadetesCsv("cadetes.csv");
 List<Pedido> pedidos = new List<Pedido>();
 Cadeteria cadeteria = new Cadeteria("Pepe", "3813524023", cadetes, pedidos);
 
