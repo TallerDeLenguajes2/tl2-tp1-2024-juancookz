@@ -8,7 +8,6 @@ public class CSV
             {
                 return new List<string>(); // Devuelve una lista vacía si el archivo fue recién creado y se asume que está vacío.
             }
-
             string[] lines = File.ReadAllLines(filePath);
             return new List<string>(lines);
         }
@@ -19,36 +18,37 @@ public class CSV
         }
     }
 
-public bool WriteCSV(string filePath, List<string> data)
-{
-    try
+    public bool WriteCSV(string filePath, List<string> data)
     {
-        if (FileExistsAndCreateIfNot(filePath))
+        try
         {
-            File.WriteAllLines(filePath, data);
-            return true; // Devuelve verdadero si la operación fue exitosa.
+            if (FileExistsAndCreateIfNot(filePath))
+            {
+                File.WriteAllLines(filePath, data);
+                return true; // Devuelve verdadero si la operación fue exitosa.
+            }
         }
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Se produjo un error al guardar el archivo: {ex.Message}"); // Muestra mensaje de error detallado en caso de fallo.
-        return false; // Devuelve falso en caso de fallo.
-    }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Se produjo un error al guardar el archivo: {ex.Message}"); // Muestra mensaje de error detallado en caso de fallo.
+            return false; // Devuelve falso en caso de fallo.
+        }
 
-    return false; // Add this line to ensure that the method always returns something.
-}
-
+        return false; // Add this line to ensure that the method always returns something.
+    }
 
     private bool FileExistsAndCreateIfNot(string filePath)
     {
         try
         {
-            if (!Directory.Exists(filePath))
+            if (!Directory.Exists("csv"))
             {
-                
-                Console.WriteLine("El archivo no existe. Creando uno nuevo..."); // Mensaje en caso de que el archivo no exista y se esté creando un nuevo archivo.
                 Directory.CreateDirectory("csv");
-                File.Create("csv/" + filePath).Close(); // Cierra la secuencia después de crear el archivo para liberar recursos.
+            }
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine("El archivo no existe. Creando uno nuevo..."); // Mensaje en caso de que el archivo no exista y se esté creando un nuevo archivo.
+                File.Create(filePath).Close(); // Cierra la secuencia después de crear el archivo para liberar recursos.
                 return false;
             }
         }
