@@ -1,19 +1,25 @@
 class Cliente
 {
-    private string Nombre;
-    private string Direccion;
-    private string Telefono;
-    private string ReferenciaDireccion;
+    private string nombre;
+    private string direccion;
+    private string telefono;
+    private string referenciaDireccion;
 
     public Cliente(string nombre, string direccion, string telefono, string referenciaDireccion)
     {
-        Nombre = nombre;
-        Direccion = direccion;
-        Telefono = telefono;
-        ReferenciaDireccion = referenciaDireccion;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.referenciaDireccion = referenciaDireccion;
     }
-    public void Mostrar()
+
+    public string Nombre { get => nombre;}
+    public string Direccion { get => direccion;}
+    public string Telefono { get => telefono;}
+    public string ReferenciaDireccion { get => referenciaDireccion;}
+
+    public string Mostrar()
     {
-        System.Console.WriteLine(Nombre + " | " + Direccion);
+        return nombre + " | " + direccion;
     }
 }

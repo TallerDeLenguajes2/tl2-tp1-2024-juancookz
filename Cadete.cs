@@ -4,7 +4,6 @@ class Cadete
     private string nombre;
     private string direccion;
     private string telefono;
-    public int Id { get => id; }
     public Cadete(int id, string nombre, string direccion, string telefono)
     {
         this.id = id;
@@ -12,8 +11,14 @@ class Cadete
         this.direccion = direccion;
         this.telefono = telefono;
     }
-    public void Mostrar()
+
+    public int Id { get => id;}
+    public string Nombre { get => nombre;}
+    public string Direccion { get => direccion;}
+    public string Telefono { get => telefono;}
+
+    public string Mostrar()
     {
-        System.Console.WriteLine(id + " | " + nombre);
+        return id + " | " + nombre;
     }
 }

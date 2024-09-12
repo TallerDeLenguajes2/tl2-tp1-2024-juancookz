@@ -21,9 +21,9 @@ class Pedido
         estado = Estado.Asignar;
         this.cadete = cadete;
     }
-    public void Mostrar()
+    public string Mostrar()
     {
-        System.Console.WriteLine(Numero + " | " + estado);
+        return Numero + " | " + cliente.Nombre + " | " + cadete.Nombre + " | " + estado;
     }
     public void AsignarCadete(Cadete cadeteAsignado)
     {
