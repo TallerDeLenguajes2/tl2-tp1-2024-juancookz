@@ -30,4 +30,8 @@ class Pedido
         estado = Estado.EnCurso;
         cadete = cadeteAsignado;
     }
+    public void Finalizar()
+    {
+        estado = Estado.Finalizado;
+    }
 }
