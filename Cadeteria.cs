@@ -49,7 +49,7 @@ class Cadeteria
             return 0;
         }
     }
-    public int CantEntregasCadete(int idCadete)
+    private int CantEntregasCadete(int idCadete)
     {
         return ListadoPedidos
             .Where(p => p.Cadete.Id == idCadete && p.estado == Pedido.Estado.Finalizado)
