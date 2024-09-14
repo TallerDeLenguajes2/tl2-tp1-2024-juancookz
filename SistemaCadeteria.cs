@@ -18,8 +18,9 @@ while (continuar)
     Console.WriteLine("3. Cambiar estado de un pedido");
     Console.WriteLine("4. Reasignar pedido a otro cadete");
     Console.WriteLine("5. Jornal a cobrar");
+    Console.WriteLine("6. Estado Pedidos");
     Console.WriteLine("0. Salir");
-    Console.Write("Seleccione una opción (0-5): ");
+    Console.Write("Seleccione una opción (0-6): ");
     int menu = elegirOpcion();
     switch (menu)
     {
@@ -40,6 +41,10 @@ while (continuar)
             MenuReasignarPedido(cadetes, pedidos, cadeteria);
             break;
         case 5:
+            MenuJornalACobrar(cadetes, cadeteria);
+            break;
+        case 6:
+            MenuEstadoPedidos(pedidos);
             break;
         default:
             Console.Clear();
@@ -219,4 +224,43 @@ void MenuReasignarPedido(List<Cadete> cadetes, List<Pedido> pedidos, Cadeteria c
         System.Console.WriteLine("Presione cualquier tecla para salir");
         Console.ReadKey();
     }
+}
+
+static void MenuEstadoPedidos(List<Pedido> pedidos)
+{
+    if (pedidos.Count == 0)
+    {
+        System.Console.WriteLine("No hay pedidos");
+        System.Console.WriteLine("Presione cualquier tecla para salir");
+        Console.ReadKey();
+    }
+    else
+    {
+        System.Console.WriteLine("== Estado Pedidos ==");
+        System.Console.WriteLine("Nº| Estado  | Cliente | Direccion | Cadete");
+        foreach (var pedido in pedidos)
+        {
+            System.Console.WriteLine(pedido.Mostrar());
+        }
+        System.Console.WriteLine("Presione cualquier tecla para salir");
+        Console.ReadKey();
+    }
+}
+
+void MenuJornalACobrar(List<Cadete> cadetes, Cadeteria cadeteria)
+{
+    int idCadete;
+    System.Console.WriteLine("=== Listado de cadetes ===");
+    System.Console.WriteLine("Id | Nombre");
+    foreach (var cadete in cadetes)
+    {
+        System.Console.WriteLine(cadete.Mostrar());
+    }
+    System.Console.Write("Ingrese Nº: ");
+    idCadete = elegirOpcion();
+    Console.Clear();
+    System.Console.WriteLine("Jornal a cobrar: $ " + cadeteria.JornalACobrar(idCadete));
+    Thread.Sleep(500);
+    System.Console.WriteLine("Presione cualquier tecla para salir");
+    Console.ReadKey();
 }
