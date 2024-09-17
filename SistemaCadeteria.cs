@@ -2,7 +2,6 @@ using System.ComponentModel;
 using System.Reflection;
 
 IdGen idCadetes = new IdGen("csv/cadetes.csv");
-IdGen idPedidos = new IdGen("csv/idPedidos.csv");
 List<Cadete> cadetes = LeerListaCadetesCsv("csv/cadetes.csv");
 List<Pedido> pedidos = new List<Pedido>();
 Cadeteria cadeteria = new Cadeteria("Pepe", "3813524023", cadetes, pedidos);
@@ -19,8 +18,9 @@ while (continuar)
     Console.WriteLine("4. Reasignar pedido a otro cadete");
     Console.WriteLine("5. Jornal a cobrar");
     Console.WriteLine("6. Estado Pedidos");
+    Console.WriteLine("7. Mostrar informe");
     Console.WriteLine("0. Salir");
-    Console.Write("Seleccione una opción (0-6): ");
+    Console.Write("Seleccione una opción (0-7): ");
     int menu = elegirOpcion();
     switch (menu)
     {
@@ -29,7 +29,7 @@ while (continuar)
             Console.WriteLine("Saliendo del programa...");
             break;
         case 1:
-            MenuTomarPedido(idPedidos, pedidos, cadeteria);
+            MenuTomarPedido(pedidos, cadeteria);
             break;
         case 2:
             MenuAsignarPedido(cadetes, pedidos, cadeteria);
@@ -45,6 +45,8 @@ while (continuar)
             break;
         case 6:
             MenuEstadoPedidos(pedidos);
+            break;
+        case 7:
             break;
         default:
             Console.Clear();
@@ -84,9 +86,8 @@ List<Cadete> LeerListaCadetesCsv(string cadetesFilePath)
     return ListadoCadetesCsv;
 }
 
-void MenuTomarPedido(IdGen idPedidos, List<Pedido> pedidos, Cadeteria cadeteria)
+void MenuTomarPedido(List<Pedido> pedidos, Cadeteria cadeteria)
 {
-    int id = idPedidos.GenerateNewId();
 
     Console.WriteLine("Ingrese el nombre del cliente: ");
     string nombre = Console.ReadLine();
@@ -103,7 +104,7 @@ void MenuTomarPedido(IdGen idPedidos, List<Pedido> pedidos, Cadeteria cadeteria)
     Console.WriteLine("Ingrese la observación del pedido (opcional): ");
     string observacion = Console.ReadLine();
 
-    pedidos.Add(cadeteria.TomarPedido(id, nombre, direccion, telefono, referenciaDireccion, observacion));
+    pedidos.Add(cadeteria.TomarPedido(nombre, direccion, telefono, referenciaDireccion, observacion));
 }
 
 void MenuAsignarPedido(List<Cadete> cadetes, List<Pedido> pedidos, Cadeteria cadeteria)

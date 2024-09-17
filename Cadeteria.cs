@@ -15,8 +15,19 @@ class Cadeteria
         ListadoPedidos = listadoPedidos;
     }
 
-    public Pedido TomarPedido(int numero, string nombre, string direccion, string telefono, string referenciaDireccion, string observacion)
+    public Pedido TomarPedido(string nombre, string direccion, string telefono, string referenciaDireccion, string observacion)
     {
+        int numero;
+
+        if (ListadoPedidos.Count() == 0)
+        {
+            numero = 1;
+        }
+        else
+        {
+            numero = ListadoPedidos.Last().Numero + 1;
+        }
+
         Cadete cadete = null;
         Cliente cliente = new Cliente(nombre, direccion, telefono, referenciaDireccion);
         return new Pedido(numero, observacion, cliente, cadete);
