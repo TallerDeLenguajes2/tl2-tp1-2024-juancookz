@@ -62,14 +62,52 @@ class Cadeteria
     }
     private int CantEntregasCadete(int idCadete)
     {
-        return ListadoPedidos
+        try
+        {
+            return ListadoPedidos
             .Where(p => p.Cadete.Id == idCadete && p.estado == Pedido.Estado.Finalizado)
             .Count();
+        }
+        catch (System.Exception)
+        {
+            return 0;
+        }
+        
     }
 
     public int JornalACobrar(int idCadete)
     {
         int monto = CantEntregasCadete(idCadete) * 500;
         return monto;
+    }
+    public void InformeJornada()
+    {
+        int enviosTotal = 0, montoGanado = 0, cantCadetes = 0;
+
+        float enviosPromedio = 0;
+
+        enviosTotal = (ListadoPedidos
+        .Where(p => p.estado == Pedido.Estado.Finalizado)
+        .Count());
+
+        montoGanado = enviosTotal * 500;
+
+        cantCadetes = ListadoCadetes.Count();
+
+        enviosPromedio = enviosTotal / cantCadetes;
+
+        Console.Clear();
+        System.Console.WriteLine("Informe de jornada");
+        System.Console.WriteLine("== Detalle cadetes ==");
+        System.Console.WriteLine("ID|      Nombre      | Envios | Monto ganado");
+        foreach (var cadete in ListadoCadetes)
+        {
+            System.Console.WriteLine(cadete.Mostrar() + " | " + CantEntregasCadete(cadete.Id) + " | " + JornalACobrar(cadete.Id));
+
+        }
+        System.Console.WriteLine("Monto total ganado: $" + montoGanado);
+        System.Console.WriteLine("Cantidad de envios:");
+        System.Console.WriteLine("- Promedio por cadete: {0:0.0000}", enviosPromedio);
+        System.Console.WriteLine("- Total: " + enviosTotal);
     }
 }
