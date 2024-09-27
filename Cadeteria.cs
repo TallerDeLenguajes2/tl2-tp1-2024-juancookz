@@ -31,7 +31,7 @@ class Cadeteria
 
         Cadete cadete = null;
         Cliente cliente = new Cliente(nombre, direccion, telefono, referenciaDireccion);
-        return new Pedido(numero, observacion, cliente, cadete);
+        return new Pedido(numero, observacion, cliente, cadete, Pedido.Estado.Asignar);
     }
     public int AsignarPedido(int idCadete, int idPedido)
     {
@@ -66,7 +66,7 @@ class Cadeteria
         try
         {
             return ListadoPedidos
-            .Where(p => p.Cadete.Id == idCadete && p.estado == Pedido.Estado.Finalizado)
+            .Where(p => p.Cadete.Id == idCadete && p.EstadoPedido == Pedido.Estado.Finalizado)
             .Count();
         }
         catch (System.Exception)
@@ -87,7 +87,7 @@ class Cadeteria
         float enviosPromedio = 0;
 
         enviosTotal = (ListadoPedidos
-            .Where(p => p.estado == Pedido.Estado.Finalizado)
+            .Where(p => p.EstadoPedido == Pedido.Estado.Finalizado)
             .Count());
 
         montoGanado = enviosTotal * 500;

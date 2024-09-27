@@ -1,27 +1,33 @@
-class Pedido
+public class Pedido
 {
-    public int Numero { get => numero; }
-    internal Cadete Cadete { get => cadete;}
-
-    private int numero;
-    private string observacion;
-    private Cliente cliente;
-    public Estado estado;
-    private Cadete cadete;
     public enum Estado
     {
         Asignar,
         EnCurso,
         Finalizado
-    };
-    
-    public Pedido(int numero, string observacion, Cliente cliente, Cadete cadete)
+    }
+
+    private int numero;
+    private string observacion;
+    private Cliente cliente;
+    private Cadete cadete;
+    private Estado estado;  // Private field
+
+    public int Numero { get => numero; }
+    public string Observacion { get => observacion; }
+    public Cliente Cliente { get => cliente; }
+    public Cadete Cadete { get => cadete; }
+
+    // Public getter, but private setter for Estado
+    public Estado EstadoPedido { get => estado; }
+
+    public Pedido(int numero, string observacion, Cliente cliente, Cadete cadete, Estado estado)
     {
         this.numero = numero;
         this.observacion = observacion;
         this.cliente = cliente;
-        estado = Estado.Asignar;
         this.cadete = cadete;
+        this.estado = estado;  // Set state via constructor
     }
     public string Mostrar()
     {
@@ -29,7 +35,8 @@ class Pedido
         if (cadete == null)
         {
             nombreCadete = "N/A";
-        }else
+        }
+        else
         {
             nombreCadete = cadete.Nombre;
         }
