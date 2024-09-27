@@ -1,5 +1,6 @@
 ﻿using System.Data.Common;
 using System.Linq;
+using System.Text;
 class Cadeteria
 {
     private string Nombre;
@@ -72,7 +73,7 @@ class Cadeteria
         {
             return 0;
         }
-        
+
     }
 
     public int JornalACobrar(int idCadete)
@@ -80,34 +81,36 @@ class Cadeteria
         int monto = CantEntregasCadete(idCadete) * 500;
         return monto;
     }
-    public void InformeJornada()
+    public string InformeJornada()
     {
         int enviosTotal = 0, montoGanado = 0, cantCadetes = 0;
-
         float enviosPromedio = 0;
 
         enviosTotal = (ListadoPedidos
-        .Where(p => p.estado == Pedido.Estado.Finalizado)
-        .Count());
+            .Where(p => p.estado == Pedido.Estado.Finalizado)
+            .Count());
 
         montoGanado = enviosTotal * 500;
-
         cantCadetes = ListadoCadetes.Count();
-
         enviosPromedio = enviosTotal / cantCadetes;
 
-        Console.Clear();
-        System.Console.WriteLine("Informe de jornada");
-        System.Console.WriteLine("== Detalle cadetes ==");
-        System.Console.WriteLine("ID|      Nombre      | Envios | Monto ganado");
+        // Start building the report string
+        StringBuilder informe = new StringBuilder();
+        informe.AppendLine("Informe de jornada");
+        informe.AppendLine("== Detalle cadetes ==");
+        informe.AppendLine("ID|      Nombre      | Envios | Monto ganado");
+
         foreach (var cadete in ListadoCadetes)
         {
-            System.Console.WriteLine(cadete.Mostrar() + " | " + CantEntregasCadete(cadete.Id) + " | " + JornalACobrar(cadete.Id));
-
+            informe.AppendLine($"{cadete.Mostrar()} | {CantEntregasCadete(cadete.Id)} | {JornalACobrar(cadete.Id)}");
         }
-        System.Console.WriteLine("Monto total ganado: $" + montoGanado);
-        System.Console.WriteLine("Cantidad de envios:");
-        System.Console.WriteLine("- Promedio por cadete: {0:0.0000}", enviosPromedio);
-        System.Console.WriteLine("- Total: " + enviosTotal);
+
+        informe.AppendLine($"Monto total ganado: ${montoGanado}");
+        informe.AppendLine("Cantidad de envios:");
+        informe.AppendLine($"- Promedio por cadete: {enviosPromedio:0.0000}");
+        informe.AppendLine($"- Total: {enviosTotal}");
+
+        // Return the full report as a string
+        return informe.ToString();
     }
 }

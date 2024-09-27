@@ -47,7 +47,7 @@ while (continuar)
             MenuEstadoPedidos(pedidos);
             break;
         case 7:
-            cadeteria.InformeJornada();
+            System.Console.WriteLine(cadeteria.InformeJornada());
             System.Console.WriteLine("Presione cualquier tecla para salir");
             Console.ReadKey();
             break;
