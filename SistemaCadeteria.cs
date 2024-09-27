@@ -112,14 +112,14 @@ void MenuTomarPedido(List<Pedido> pedidos, Cadeteria cadeteria)
 
 void MenuAsignarPedido(List<Cadete> cadetes, List<Pedido> pedidos, Cadeteria cadeteria)
 {
-    if (pedidos.Where(p => p.estado == Pedido.Estado.Asignar).Count() > 0)
+    if (pedidos.Where(p => p.EstadoPedido == Pedido.Estado.Asignar).Count() > 0)
     {
         int idPedido, idCadete, asignacion = 0;
         do
         {
             System.Console.WriteLine("Elija un pedido a asignar:");
             System.Console.WriteLine("Nº| Estado  | Cliente | Direccion | Cadete");
-            foreach (var pedido in pedidos.Where(p => p.estado == Pedido.Estado.Asignar))
+            foreach (var pedido in pedidos.Where(p => p.EstadoPedido == Pedido.Estado.Asignar))
             {
                 System.Console.WriteLine(pedido.Mostrar());
             }
@@ -153,14 +153,14 @@ void MenuAsignarPedido(List<Cadete> cadetes, List<Pedido> pedidos, Cadeteria cad
 
 void MenuFinalizarPedido(List<Pedido> pedidos, Cadeteria cadeteria)
 {
-    if (pedidos.Where(p => p.estado == Pedido.Estado.EnCurso).Count() > 0)
+    if (pedidos.Where(p => p.EstadoPedido == Pedido.Estado.EnCurso).Count() > 0)
     {
         int idPedido, asignacion = 0;
         do
         {
             System.Console.WriteLine("Elija un pedido en curso:");
             System.Console.WriteLine("Nº| Estado | Cliente | Direccion | Cadete");
-            foreach (var pedido in pedidos.Where(p => p.estado == Pedido.Estado.EnCurso))
+            foreach (var pedido in pedidos.Where(p => p.EstadoPedido == Pedido.Estado.EnCurso))
             {
                 System.Console.WriteLine(pedido.Mostrar());
             }
@@ -191,14 +191,14 @@ void MenuFinalizarPedido(List<Pedido> pedidos, Cadeteria cadeteria)
 
 void MenuReasignarPedido(List<Cadete> cadetes, List<Pedido> pedidos, Cadeteria cadeteria)
 {
-    if (pedidos.Where(p => p.estado == Pedido.Estado.EnCurso).Count() > 0)
+    if (pedidos.Where(p => p.EstadoPedido == Pedido.Estado.EnCurso).Count() > 0)
     {
         int idPedido, idCadete, asignacion = 0;
         do
         {
             System.Console.WriteLine("Elija un pedido en curso:");
             System.Console.WriteLine("Nº| Estado  | Cliente | Direccion | Cadete");
-            foreach (var pedido in pedidos.Where(p => p.estado == Pedido.Estado.EnCurso))
+            foreach (var pedido in pedidos.Where(p => p.EstadoPedido == Pedido.Estado.EnCurso))
             {
                 System.Console.WriteLine(pedido.Mostrar());
             }
